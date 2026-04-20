@@ -1,10 +1,8 @@
-# platform: linux-64
-# python=3.7.3
-# pip install -r requirements.txt
-numpy==1.18.2
-pandas==1.0.3
-scikit-learn==0.22.2.post1
-torch==1.4.0
-torchvision==0.5.0
-tqdm==4.45.0
-transformers==2.7.0
+# Requiere Python 3.11 y Apple Silicon compatible
+numpy==1.26.4
+pandas>=1.5.0
+scikit-learn>=1.2.0
+torch==2.1.0; platform_machine == "arm64"  # Versión compatible con Python 3.11 y Apple Silicon
+torchvision==0.16.0; platform_machine == "arm64"
+tqdm>=4.65.0
+transformers==4.40.0  # Versión moderna compatible con torch 2.x y Python 3.11
