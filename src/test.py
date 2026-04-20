@@ -22,6 +22,9 @@ args = parser.parse_args()
 
 if torch.cuda.is_available():
 	device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+	device = torch.device("mps")
+	print('Using Apple Silicon GPU (MPS) for inference.')
 else:
 	print('No GPU available, using the CPU instead.')
 	device = torch.device("cpu")
@@ -46,7 +49,7 @@ csv_writer.writerow(['id','seeker_post','response_post','ER_label','IP_label','E
 
 for i in range(len(seeker_posts)):
 	(logits_empathy_ER, predictions_ER, logits_empathy_IP, predictions_IP, logits_empathy_EX, predictions_EX, logits_rationale_ER, predictions_rationale_ER, logits_rationale_IP, predictions_rationale_IP, logits_rationale_EX,predictions_rationale_EX) = empathy_classifier.predict_empathy([seeker_posts[i]], [response_posts[i]])
-
+	
 	csv_writer.writerow([ids[i], seeker_posts[i], response_posts[i], predictions_ER[0], predictions_IP[0], predictions_EX[0], predictions_rationale_ER[0].tolist(), predictions_rationale_IP[0].tolist(), predictions_rationale_EX[0].tolist()])
 
 output_file.close()

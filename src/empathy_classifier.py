@@ -19,7 +19,9 @@ from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from torch.utils.data import TensorDataset, random_split
 
 from models.models import BiEncoderAttentionWithRationaleClassification
-from transformers import AdamW, RobertaConfig
+#from transformers import AdamW, RobertaConfig
+from transformers import RobertaConfig
+from transformers.optimization import AdamW # Importa AdamW desde su nueva ubicación
 
 import datetime
 
@@ -139,7 +141,8 @@ class EmpathyClassifier():
 														attention_mask_RP=b_input_mask_RP)
 
 				
-			logits_empathy_ER = logits_empathy_ER.detach().cpu().numpy().tolist()
+			#logits_empathy_ER = logits_empathy_ER.detach().cpu().numpy().tolist()
+			logits_empathy_ER = logits_empathy_ER.detach().cpu().numpy()
 			predictions_ER = np.argmax(logits_empathy_ER, axis=1).flatten()
 
 			logits_empathy_IP = logits_empathy_IP.detach().cpu().numpy().tolist()
